@@ -7,11 +7,9 @@ const userRoutes = require("./routes/user");
 const notificationRoutes = require("./routes/notifications")
 const progressRoutes = require("./routes/progress");
 const certificateRoutes = require("./routes/certificates")
-const stripeRoutes = require('./routes/stripe');
 const connectDB = require('./config/db');
-const dotenv = require('dotenv');
+require("dotenv").config();
 
-dotenv.config();
 connectDB()
 
 const app = express();
@@ -28,7 +26,6 @@ app.use("/api/user", userRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/certificates", certificateRoutes);
-app.use('/api/stripe', stripeRoutes);
 
 
 

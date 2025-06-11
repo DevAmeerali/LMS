@@ -2,7 +2,7 @@ import axios from 'axios';
 import {useState} from 'react';
 
 export default function Signup() {
-    const {FormData, setFormData} = useState({
+    const {formData, setformData} = useState({
         name: "",
         email: "",
         password: "",
@@ -10,7 +10,7 @@ export default function Signup() {
     })
 
     const  handleChange = (e) => {
-        setFormData({...FormData, [e.target.name]: e.target.value})
+        setformData({...formData, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = async (e) => {

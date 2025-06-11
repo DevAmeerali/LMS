@@ -16,7 +16,7 @@ export default function Enrollments() {
         }
 
         const token = localStorage.getItem("token");
-        const studentId = user._id;
+        // const studentId = user._id;
 
         const res = await axios.get(`http://localhost:5000/api/enrollments`, {
           headers: { Authorization: `Bearer ${token}` },

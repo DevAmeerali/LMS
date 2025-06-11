@@ -9,11 +9,20 @@ export function AuthProvider({ children }) {
 
   // Load user from localStorage on mount
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+  const storedUser = localStorage.getItem("user");
+  try {
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      if (parsedUser && typeof parsedUser === 'object') {
+        setUser(parsedUser);
+      }
     }
-  }, []);
+  } catch (error) {
+    console.error("Failed to parse user from localStorage:", error);
+    localStorage.removeItem("user"); // clean up corrupted value
+  }
+}, []);
+
 
   // login function - saves user to state & localStorage
   const login = (userData) => {

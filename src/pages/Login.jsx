@@ -17,6 +17,8 @@ export default function Login() {
         e.preventDefault();
         try {
             const res = await axios.post("http://localhost:5000/api/auth/login", credentials);
+            // console.log("Login response:", res.data); 
+
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("user", JSON.stringify(res.data.user));
             setUser(res.data.user);
@@ -26,7 +28,7 @@ export default function Login() {
                 navigate("/student-dashboard");
             }
         } catch (error) {
-            console.error(error)
+            console.log(error)
             alert(error.response?.data?.error || "Login failed");
         }
     };

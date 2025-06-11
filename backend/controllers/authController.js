@@ -2,6 +2,7 @@ const User = require("../models/User")
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const sendResetEmail = require('../utils/mailer');
+require("dotenv").config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -27,7 +28,8 @@ exports.login = async (req, res) => {
         const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1d" });
         res.json({ token, user });
     } catch (err) {
-        res.status(200).json({error:'Error while logging in', details: err.message})
+         console.error("Login error:", err); // <-- Add this
+    res.status(500).json({ error: "Server error", details: err.message });
     }
 }
 

@@ -7,7 +7,10 @@ export default function Home() {
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/courses")
-      .then(res => setCourses(res.data))
+      .then(res => {
+      console.log("Courses data:", res.data); // <-- Check this!
+      setCourses(res.data);
+    })
       .catch(err => console.error("Failed to load courses:", err));
   }, []);
 
