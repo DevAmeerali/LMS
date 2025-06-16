@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, enum: ['student', 'instructor'], default: 'student' },
   profilePicture: { type: String, default: "" },
+  stripeAccountId: { type: String }, // ✅ Added field for instructors
 });
 
 userSchema.pre('save', async function(next) {

@@ -1,6 +1,5 @@
-// import { Link } from "react-router-dom";
 export default function InstructorDashboard() {
-const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div style={styles.container}>
@@ -8,14 +7,9 @@ const user = JSON.parse(localStorage.getItem("user"));
       <p style={styles.subtext}>
         Manage your courses, add new content, and guide your students to success.
       </p>
-
-      {/* <div style={styles.cardContainer}>
-        <Link to="/add-course" style={styles.card}>
-          <span style={styles.emoji}>➕</span>
-          <h3 style={styles.cardTitle}>Add New Course</h3>
-          <p style={styles.cardDescription}>Create and share a new course with students.</p>
-        </Link>
-      </div> */}
+      <a href="/stripe-connect" style={styles.connectButton}>
+        Connect Stripe Account
+      </a>
     </div>
   );
 }
@@ -37,32 +31,14 @@ const styles = {
     color: "#636e72",
     marginBottom: "3rem",
   },
-  cardContainer: {
-    display: "flex",
-    justifyContent: "center",
-    gap: "2rem",
-    flexWrap: "wrap",
-  },
-  card: {
-    textDecoration: "none",
-    backgroundColor: "#ffffff",
-    padding: "2rem",
-    borderRadius: "12px",
-    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-    width: "280px",
-    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-    color: "#2d3436",
-  },
-  emoji: {
-    fontSize: "2.5rem",
-    marginBottom: "0.5rem",
-  },
-  cardTitle: {
-    fontSize: "1.5rem",
-    marginBottom: "0.5rem",
-  },
-  cardDescription: {
-    fontSize: "1rem",
-    color: "#636e72",
+  connectButton: {
+    display: 'inline-block',
+    padding: '10px 20px',
+    backgroundColor: '#2ecc71',
+    color: '#fff',
+    borderRadius: '8px',
+    textDecoration: 'none',
+    fontWeight: 'bold',
+    marginTop: '1rem',
   },
 };

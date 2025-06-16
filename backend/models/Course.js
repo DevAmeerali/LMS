@@ -12,6 +12,11 @@ const contentSchema = new mongoose.Schema({
 const courseSchema = new mongoose.Schema({
   title: String,
   description: String,
+  price: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"

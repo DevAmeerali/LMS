@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const CourseContentPage = () => {
   const { courseId } = useParams();
+  const navigate = useNavigate();
   const [course, setCourse] = useState(null);
   const [progress, setProgress] = useState([]);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -29,7 +30,7 @@ const CourseContentPage = () => {
         );
         setCourse(data);
       } catch (err) {
-        console.error("Error fetching course:", err);
+       console.error("Error fetching course:", err);
       }
     };
 
@@ -47,7 +48,7 @@ const CourseContentPage = () => {
 
     fetchCourse();
     fetchProgress();
-  }, [courseId]);
+  }, [courseId, navigate]);
 
   useEffect(() => {
     if (course && course.content.length > 0) {
@@ -183,6 +184,7 @@ const CourseContentPage = () => {
   );
 };
 
+// ✅ Unchanged styling
 const styles = {
   container: {
     maxWidth: "800px",

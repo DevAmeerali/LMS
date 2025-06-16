@@ -10,12 +10,13 @@ exports.getAllCourses = async (req, res) => {
 // Create new course
 exports.createCourse = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, price } = req.body;
     const instructorId = req.user.id;
 
     const newCourse = new Course({
       title,
       description,
+      price: Number(price),
       instructor: instructorId,
     });
 
@@ -28,6 +29,7 @@ exports.createCourse = async (req, res) => {
     res.status(500).json({ message: "Failed to create course", error: error.message });
   }
 };
+
 
 // Delete course
 exports.deleteCourse = async (req, res) => {
@@ -116,5 +118,25 @@ exports.deleteCourseContent = async (req, res) => {
     res.status(500).json({ message: "Failed to delete content", error: err.message });
   }
 };
+
+// exports.getEnrolledCourseContent = async (req, res) => {
+//   const courseId = req.params.id;
+//   const userId = req.user.id;
+
+//   try {
+//     const enrolled = await Enrollment.findOne({ courseId, userId });
+
+//     if (!enrolled) {
+//       return res.status(403).json({ message: 'Access denied. You are not enrolled in this course.' });
+//     }
+
+//     const course = await Course.findById(courseId);
+//     if (!course) return res.status(404).json({ message: 'Course not found.' });
+
+//     res.json(course);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
 
 

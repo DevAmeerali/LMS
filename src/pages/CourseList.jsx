@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import CheckoutButton from "../components/CheckoutButton";
 
 export default function CourseList() {
   const [courses, setCourses] = useState([]);
@@ -35,30 +36,35 @@ export default function CourseList() {
       );
       alert("Enrolled successfully");
     } catch (err) {
-      // console.error(err);
-      const message =
-        err.response?.data?.message || "Enrollment failed";
+      const message = err.response?.data?.message || "Enrollment failed";
       alert(message);
     }
-};
+  };
 
-return (
-  <div style={styles.container}>
-    <h2 style={styles.heading}>📚 Available Courses</h2>
+  return (
+    <div style={styles.container}>
+      <h2 style={styles.heading}>📚 Available Courses</h2>
 
-    {courses.length === 0 && <p>No courses available.</p>}
+      {courses.length === 0 && <p>No courses available.</p>}
 
-    {courses.map((course) => (
-      <div key={course._id} style={styles.card}>
-        <h3 style={styles.title}>{course.title}</h3>
-        <p style={styles.description}>{course.description}</p>
-        <button onClick={() => enroll(course._id)} style={styles.button}>
-          Enroll Now
-        </button>
-      </div>
-    ))}
-  </div>
-);
+      {courses.map((course) => (
+        <div key={course._id} style={styles.card}>
+          <h3 style={styles.title}>{course.title}</h3>
+          <p style={styles.description}>{course.description}</p>
+          <p><strong>Price:</strong> {course.price}$</p>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            {course.price === 0 ? (
+              <button onClick={() => enroll(course._id)} style={styles.button}>
+                Enroll Now
+              </button>
+            ) : (
+              <CheckoutButton course={course} />
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 const styles = {

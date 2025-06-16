@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 export default function AddCourse() {
-  const [course, setCourse] = useState({ title: "", description: "" });
+  const [course, setCourse] = useState({ title: "", description: "", price: "" });
 
   const handleChange = (e) => {
     setCourse({ ...course, [e.target.name]: e.target.value });
@@ -18,7 +18,7 @@ export default function AddCourse() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Course Added");
-      setCourse({ title: "", description: "" });
+      setCourse({ title: "", description: "", price: "" });
     } catch (error) {
       alert("Failed to add Course");
     }
@@ -39,6 +39,15 @@ export default function AddCourse() {
         name="description"
         placeholder="Course Description"
         value={course.description}
+        onChange={handleChange}
+        required
+        style={styles.input}
+      />
+      <input
+        name="price"
+        placeholder="Course Price (USD)"
+        value={course.price}
+        type="number"
         onChange={handleChange}
         required
         style={styles.input}

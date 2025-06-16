@@ -11,7 +11,8 @@ const {
   updateCourse,
   addCourseContent,
   getCourseById,
-  deleteCourseContent
+  deleteCourseContent,
+  getEnrolledCourseContent
 } = require("../controllers/courseController");
 
 const router = express.Router();

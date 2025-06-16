@@ -13,7 +13,7 @@ exports.enrollInCourse = async (req, res) => {
     if (existing) {
       return res.status(400).json({ message: "Already enrolled in this course" });
     }
-
+    
     const enrollment = new Enrollment({ student: studentId, course });
     await enrollment.save();
 
