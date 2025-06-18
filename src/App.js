@@ -29,7 +29,9 @@ import DashboardLayout from "./components/DashboardLayout";
 import { AuthProvider, AuthContext } from "./AuthContext";
 import StripeConnect from "./pages/StripeConnect";
 import PaymentSuccess from "./pages/PaymentSuccess";
-// import PaymentCancelled from "./pages/PaymentCancelled"; //  OPTIONAL
+import OnboardingReturn from './pages/OnboardingReturn';
+import OnboardingRefresh from './pages/OnboardingRefresh';
+// import PaymentCancelled from "./pages/PaymentCancelled"; // Optional
 
 const stripePromise = loadStripe('pk_test_51RVZ2n4CtuxFChJ2p7kbZHjGN5Mli9vN1WqG75EtvltkkIhNU9GwGgsLokElc80PNmIB5Q1SAFOQRF9qd6JZcFGD00qzuDwCU8');
 
@@ -73,10 +75,12 @@ function AppRoutes() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-        {/* ✅ STRIPE CONNECT ROUTE */}
+        {/* ✅ Stripe Connect onboarding */}
         <Route path="/stripe-connect" element={<StripeConnect />} />
+        <Route path="/stripe/onboarding/return" element={<OnboardingReturn />} />
+        <Route path="/stripe/onboarding/refresh" element={<OnboardingRefresh />} />
 
-        {/* ✅ PAYMENT SUCCESS + CANCEL ROUTES */}
+        {/* ✅ Payment success */}
         <Route path="/payment-success" element={<PaymentSuccess />} />
         {/* <Route path="/payment-cancelled" element={<PaymentCancelled />} /> */}
 
@@ -110,10 +114,7 @@ function AppRoutes() {
               <Navigate to="/login" />
             )
           } />
-          <Route
-            path="/edit-course/:courseId"
-            element={user ? <EditCourse /> : <Navigate to="/login" />}
-          />
+          <Route path="/edit-course/:courseId" element={user ? <EditCourse /> : <Navigate to="/login" />} />
           <Route path="/course/:courseId" element={<CourseContent />} />
         </Route>
       </Routes>

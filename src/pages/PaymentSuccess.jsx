@@ -21,13 +21,13 @@ const PaymentSuccess = () => {
         });
 
         if (res.data.success) {
-          setMessage("✅ You have been enrolled successfully!");
+          setMessage("You have been enrolled successfully!");
         } else {
-          setMessage("⚠️ Payment was not completed.");
+          setMessage("Payment was not completed.");
         }
       } catch (err) {
         console.error("Verification failed:", err.response?.data || err.message);
-        setMessage("❌ Something went wrong during enrollment.");
+        setMessage("Something went wrong during enrollment.");
       } finally {
         setLoading(false);
       }
@@ -41,17 +41,45 @@ const PaymentSuccess = () => {
     }
   }, [sessionId]);
 
+  const styles = {
+    container: {
+      marginTop: "80px",
+      textAlign: "center",
+      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    },
+    heading: {
+      fontSize: "32px",
+      fontWeight: "bold",
+      color: "green",
+    },
+    paragraph: {
+      marginTop: "20px",
+      fontSize: "18px",
+      color: "#333",
+    },
+    button: {
+      marginTop: "30px",
+      padding: "10px 20px",
+      backgroundColor: "#007BFF",
+      color: "#fff",
+      border: "none",
+      borderRadius: "6px",
+      cursor: "pointer",
+      fontSize: "16px",
+    },
+  };
+
   return (
-    <div className="text-center mt-20">
-      <h1 className="text-3xl font-bold text-green-600">Payment Successful!</h1>
+    <div style={styles.container}>
+      <h1 style={styles.heading}>Payment Successful!</h1>
       {loading ? (
-        <p className="mt-4">Verifying payment and enrolling you in the course...</p>
+        <p style={styles.paragraph}>Verifying payment and enrolling you in the course...</p>
       ) : (
         <>
-          <p className="mt-4">{message}</p>
+          <p style={styles.paragraph}>{message}</p>
           <button
             onClick={() => navigate("/enrollments")}
-            className="mt-6 px-4 py-2 bg-blue-500 text-white rounded"
+            style={styles.button}
           >
             Go to My Courses
           </button>
