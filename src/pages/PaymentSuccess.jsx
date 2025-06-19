@@ -13,13 +13,7 @@ const PaymentSuccess = () => {
     const verifyAndEnroll = async () => {
       try {
         const token = localStorage.getItem("token");
-
-        const res = await axios.post("http://localhost:5000/api/payments/verify-session", {
-          sessionId,
-        }, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-
+        const res = await axios.post("http://localhost:5000/api/payments/verify-session", { sessionId }, { headers: { Authorization: `Bearer ${token}` }});
         if (res.data.success) {
           setMessage("You have been enrolled successfully!");
         } else {
@@ -36,7 +30,7 @@ const PaymentSuccess = () => {
     if (sessionId) {
       verifyAndEnroll();
     } else {
-      setMessage("❌ Invalid session.");
+      setMessage("Invalid session.");
       setLoading(false);
     }
   }, [sessionId]);

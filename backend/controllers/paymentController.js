@@ -52,7 +52,7 @@ exports.createCheckoutSession = async (req, res) => {
       ],
       mode: 'payment',
       payment_intent_data: {
-        application_fee_amount: Math.round(priceInCents * 0.10), // 10% platform fee
+        application_fee_amount: Math.round(priceInCents * 0.10),
         transfer_data: {
           destination: instructor.stripeAccountId,
         },

@@ -9,6 +9,7 @@ const progressRoutes = require("./routes/progress");
 const certificateRoutes = require("./routes/certificates")
 const paymentRoutes = require('./routes/paymentRoutes');
 const stripeRoutes = require('./routes/stripe');
+const aiRoutes = require('./routes/ai');
 const connectDB = require('./config/db');
 require("dotenv").config();
 
@@ -30,6 +31,7 @@ app.use("/api/progress", progressRoutes);
 app.use("/api/certificates", certificateRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/stripe', stripeRoutes);
+app.use('/api', aiRoutes);
 
 
 app.listen(process.env.PORT, () => {

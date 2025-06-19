@@ -11,7 +11,6 @@ exports.downloadCertificate = async (req, res) => {
 
   try {
     const progress = await Progress.findOne({ student: studentId, course: courseId });
-
     if (!progress || !progress.isCompleted) {
       return res.status(400).json({ message: "Course not completed yet." });
     }
@@ -22,12 +21,10 @@ exports.downloadCertificate = async (req, res) => {
     const fileName = `${studentId}-${courseId}.pdf`;
     const outputPath = path.join(__dirname, "../certificates", fileName);
 
-    // Generate only if file doesn't already exist
     if (!fs.existsSync(outputPath)) {
       generateCertificate(student.name, course.title, outputPath);
     }
 
-    // Delay needed because PDFKit is async
     setTimeout(() => {
       res.download(outputPath, `${course.title}-certificate.pdf`);
     }, 500); 

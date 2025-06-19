@@ -31,6 +31,7 @@ import StripeConnect from "./pages/StripeConnect";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import OnboardingReturn from './pages/OnboardingReturn';
 import OnboardingRefresh from './pages/OnboardingRefresh';
+import ChatWithAIWidget from './components/ChatWithAI'; 
 // import PaymentCancelled from "./pages/PaymentCancelled"; // Optional
 
 const stripePromise = loadStripe('pk_test_51RVZ2n4CtuxFChJ2p7kbZHjGN5Mli9vN1WqG75EtvltkkIhNU9GwGgsLokElc80PNmIB5Q1SAFOQRF9qd6JZcFGD00qzuDwCU8');
@@ -48,7 +49,7 @@ function AppRoutes() {
     "/instructor",
     "/add-course",
     "/edit-course",
-    "/course",
+    "/course"
   ];
 
   const hideFooter = dashboardPaths.some((path) =>
@@ -75,49 +76,41 @@ function AppRoutes() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-        {/* ✅ Stripe Connect onboarding */}
+        {/* Stripe Connect onboarding */}
         <Route path="/stripe-connect" element={<StripeConnect />} />
         <Route path="/stripe/onboarding/return" element={<OnboardingReturn />} />
         <Route path="/stripe/onboarding/refresh" element={<OnboardingRefresh />} />
 
-        {/* ✅ Payment success */}
+        {/* Payment success */}
         <Route path="/payment-success" element={<PaymentSuccess />} />
         {/* <Route path="/payment-cancelled" element={<PaymentCancelled />} /> */}
 
-        {/* Dashboard routes */}
+        {/* Protected dashboard routes */}
         <Route element={<DashboardLayout />}>
-          {/* Student */}
+          {/* Student routes */}
           <Route path="/student-dashboard" element={user ? <StudentDashboard /> : <Navigate to="/login" />} />
           <Route path="/courses" element={user ? <CourseList /> : <Navigate to="/login" />} />
           <Route path="/enrollments" element={user ? <Enrollments /> : <Navigate to="/login" />} />
           <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
 
-          {/* Instructor */}
+          {/* Instructor routes */}
           <Route path="/instructor-dashboard" element={
-            user?.role === "instructor" ? (
-              <InstructorDashboard />
-            ) : (
-              <Navigate to="/login" />
-            )
+            user?.role === "instructor" ? <InstructorDashboard /> : <Navigate to="/login" />
           } />
           <Route path="/add-course" element={
-            user?.role === "instructor" ? (
-              <AddCourse />
-            ) : (
-              <Navigate to="/" />
-            )
+            user?.role === "instructor" ? <AddCourse /> : <Navigate to="/" />
           } />
           <Route path="/instructor/courses" element={
-            user?.role === "instructor" ? (
-              <InstructorCourses />
-            ) : (
-              <Navigate to="/login" />
-            )
+            user?.role === "instructor" ? <InstructorCourses /> : <Navigate to="/login" />
           } />
           <Route path="/edit-course/:courseId" element={user ? <EditCourse /> : <Navigate to="/login" />} />
           <Route path="/course/:courseId" element={<CourseContent />} />
         </Route>
       </Routes>
+
+      {/* AI Chat Widget (only if user is logged in) */}
+      {user && <ChatWithAIWidget />}
+
       {!hideFooter && <Footer />}
     </>
   );
